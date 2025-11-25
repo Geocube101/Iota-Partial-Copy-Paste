@@ -284,7 +284,7 @@ namespace Partial_Copy_Paste
 				buffer.IsPreview = true;
 				buffer.NeedsUpdate = VRage.ModAPI.MyEntityUpdateEnum.NONE;
 				buffer.DestructibleBlocks = false;
-				buffer.Editable = false;
+				buffer.Editable = true;
 				buffer.Flags = VRage.ModAPI.EntityFlags.Visible | VRage.ModAPI.EntityFlags.InvalidateOnMove | VRage.ModAPI.EntityFlags.Transparent | VRage.ModAPI.EntityFlags.IsNotGamePrunningStructureObject | VRage.ModAPI.EntityFlags.UpdateRender;
 				buffer.GridSizeEnum = source.GridSizeEnum;
 				buffer.Immune = true;
