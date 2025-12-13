@@ -442,6 +442,10 @@ namespace Partial_Copy_Paste
 										this.HudInfo.Show(true);
 									}
 								},
+								new TerminalButton {
+									Name = "Reset Window Position",
+									ControlChangedHandler = (sender, args) => this.HudInfo.ResetPosition(),
+								},
 							},
 						}
 					},

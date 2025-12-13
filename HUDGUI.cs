@@ -78,7 +78,42 @@ namespace Partial_Copy_Paste
 				base.Layout();
 				CurrentSelectionDisplay parent = this.Parent as CurrentSelectionDisplay;
 				if (parent == null) return;
-				this.Offset = parent.Size / new Vector2(2, -2) - this.Size / 2;
+				Vector2 center = parent.Size / new Vector2(2, -2);
+				Vector2 offset = new Vector2(0, -0.1f);
+				this.Offset = center - this.Size / 2 + parent.Size * offset;
+			}
+
+			public void OnLeftClicked(object sender, EventArgs args)
+			{
+				this.OnClicked?.Invoke();
+			}
+		}
+
+		private class MyResetPositionButton : LabelBoxButton
+		{
+			public Action OnClicked;
+
+			public MyResetPositionButton(CurrentSelectionDisplay parent) : base(parent)
+			{
+				this.MouseInput.LeftClicked += this.OnLeftClicked;
+				this.Text = "Reset Position";
+				this.Color = TerminalFormatting.OuterSpace;
+				this.HighlightColor = TerminalFormatting.Atomic;
+				this.Size = new Vector2(parent.VW * 30, parent.VH * 15);
+				this.VertCenterText = true;
+				this.FitToTextElement = true;
+				this.TextPadding = new Vector2(parent.VW * 7.5f, parent.VH * 7.5f);
+				this.ParentAlignment = ParentAlignments.Top | ParentAlignments.Left | ParentAlignments.Inner | ParentAlignments.UsePadding;
+			}
+
+			protected override void Layout()
+			{
+				base.Layout();
+				CurrentSelectionDisplay parent = this.Parent as CurrentSelectionDisplay;
+				if (parent == null) return;
+				Vector2 center = parent.Size / new Vector2(2, -2);
+				Vector2 offset = new Vector2(0, 0.1f);
+				this.Offset = center - this.Size / 2 + parent.Size * offset;
 			}
 
 			public void OnLeftClicked(object sender, EventArgs args)
@@ -88,6 +123,7 @@ namespace Partial_Copy_Paste
 		}
 
 		private readonly MyConfirmPositionButton ConfirmPositionButton;
+		private readonly MyResetPositionButton ResetPositionButton;
 		private readonly MyPartialCopyPasteModSession Session;
 		private readonly Label SelectionSizeLabel;
 		private readonly Label SelectionVolumeLabel;
@@ -122,6 +158,8 @@ namespace Partial_Copy_Paste
 			
 			this.ConfirmPositionButton = new MyConfirmPositionButton(this);
 			this.ConfirmPositionButton.OnClicked += this.ConfirmPosition;
+			this.ResetPositionButton = new MyResetPositionButton(this);
+			this.ResetPositionButton.OnClicked += this.ResetPosition;
 
 			Material arrow = new Material(MyStringId.GetOrCompute("Arrow"), new Vector2(128));
 
@@ -168,7 +206,6 @@ namespace Partial_Copy_Paste
 			this.Hide();
 			this.Session.ModConfiguration.HudWindow.Position = HudMain.GetAbsoluteVector(this.Offset);
 			this.Session.ModConfiguration.HudWindow.Dimensions = this.Size / new Vector2(HudMain.ScreenWidth, HudMain.ScreenHeight);
-			MyLog.Default.WriteLineAndConsole($"SIZE={this.Size}, POS={this.Position}");
 		}
 
 		private MatrixD UpdateArrorSpriteRotation(byte index, CustomSpaceNode space, TexturedBox element, float relx, float rely, float? relw = null, float? relh = null)
@@ -188,7 +225,7 @@ namespace Partial_Copy_Paste
 		protected override void Layout()
 		{
 			base.Layout();
-			if (this.ConfirmPositionButton.Visible) return;
+			if (this.ConfirmPositionButton.Visible || this.ResetPositionButton.Visible) return;
 			foreach (ElementWrapper element in this.StandardElements) element.Update(this);
 			string method = (this.Session.IsContracting) ? "Retract" : "Extend";
 			BindDefinition[] definitions = this.Session.GetKeybindDefinitions();
@@ -267,12 +304,19 @@ namespace Partial_Copy_Paste
 			this.SelectionBlocksLabel.TextBoard.Scale = font_scale;
 		}
 
+		public void ResetPosition()
+		{
+			this.Session.ModConfiguration.HudWindow.Position = Vector2.Zero;
+			this.Offset = HudMain.GetPixelVector(this.Session.ModConfiguration.HudWindow.Position);
+		}
+
 		public void Hide()
 		{
 			if (!this.Visible) return;
 			this.Visible = false;
-			if (this.ConfirmPositionButton.Visible) HudMain.EnableCursor = false;
+			if (this.ConfirmPositionButton.Visible || this.ResetPositionButton.Visible) HudMain.EnableCursor = false;
 			this.ConfirmPositionButton.Visible = false;
+			this.ResetPositionButton.Visible = false;
 			this.SeparateBlocks.Clear();
 		}
 
@@ -281,6 +325,7 @@ namespace Partial_Copy_Paste
 			if (this.Visible) return;
 			HudMain.EnableCursor = draggable;
 			this.ConfirmPositionButton.Visible = draggable;
+			this.ResetPositionButton.Visible = draggable;
 			//this.AllowResizing = draggable;
 			foreach (ElementWrapper element in this.StandardElements) element.Element.Visible = !draggable;
 			this.Visible = true;
