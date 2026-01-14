@@ -486,76 +486,76 @@ namespace Partial_Copy_Paste
 		#region Key Binding Callbacks
 		private void OnBeginSelection(object sender, EventArgs e)
 		{
-			if (!MyAPIGateway.CubeBuilder.IsActivated) this.BeginSelection();
+			if (!MyAPIGateway.CubeBuilder.IsActivated && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.BeginSelection();
 		}
 
 		private void OnEndSelection(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.EndSelection();
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.EndSelection();
 		}
 
 		private void OnExtendPointSelection(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.ExtendPointSelection();
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.ExtendPointSelection();
 		}
 
 		private void OnCopySelection(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.CopySelection();
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.CopySelection();
 		}
 
 		private void OnExtendSelectionForward(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Forward, 1);
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Forward, 1);
 		}
 		private void OnRetractSelectionForward(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Forward, -1);
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Forward, -1);
 		}
 
 		private void OnExtendSelectionBackward(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Backward, 1);
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Backward, 1);
 		}
 		private void OnRetractSelectionBackward(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Backward, -1);
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Backward, -1);
 		}
 
 		private void OnExtendSelectionLeft(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Left, 1);
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Left, 1);
 		}
 		private void OnRetractSelectionLeft(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Left, -1);
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Left, -1);
 		}
 
 		private void OnExtendSelectionRight(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Right, 1);
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Right, 1);
 		}
 		private void OnRetractSelectionRight(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Right, -1);
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Right, -1);
 		}
 
 		private void OnExtendSelectionUp(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Up, 1);
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Up, 1);
 		}
 		private void OnRetractSelectionUp(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Up, -1);
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Up, -1);
 		}
 
 		private void OnExtendSelectionDown(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Down, 1);
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Down, 1);
 		}
 		private void OnRetractSelectionDown(object sender, EventArgs e)
 		{
-			if (this.CanModifySelection) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Down, -1);
+			if (this.CanModifySelection && MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None && !MyAPIGateway.Gui.ChatEntryVisible && !RichHudTerminal.Open) this.ExtendSelection(MyAPIGateway.Session.Camera.WorldMatrix.Down, -1);
 		}
 		#endregion
 
